@@ -1,0 +1,15 @@
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\bin\Debug\HRIS.exe.config
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\bin\Debug\HRIS.exe
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\bin\Debug\HRIS.pdb
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.csproj.AssemblyReference.cache
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\View\MainWindow.g.cs
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\App.g.cs
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS_MarkupCompile.cache
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS_MarkupCompile.lref
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\View\MainWindow.baml
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.g.resources
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.Properties.Resources.resources
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.csproj.GenerateResource.cache
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.csproj.CoreCompileInputs.cache
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.exe
+C:\Users\Jack\Desktop\uni 2022\HRIS\HRIS\obj\Debug\HRIS.pdb
