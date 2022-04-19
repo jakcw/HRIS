@@ -58,7 +58,6 @@ namespace HRIS.Database
 						Code = rdr.GetString(0),
 						Title = rdr.GetString(1),
 						Coordinator = rdr.GetInt32(2)
-
 					});
 
 
@@ -84,7 +83,7 @@ namespace HRIS.Database
 			try
 			{
 				conn.Open();
-				var command = new MySqlCommand("SELECT id, given_name, family_name, title, campus FROM staff", conn);
+				var command = new MySqlCommand("SELECT id, given_name, family_name, title FROM staff", conn);
 				rdr = command.ExecuteReader();
 
 				while (rdr.Read())
@@ -97,9 +96,6 @@ namespace HRIS.Database
 						GivenName = rdr.GetString(1),
 						FamilyName = rdr.GetString(2),
 						Title = rdr.GetString(3),
-						Campus = ParseEnum<Campus>(rdr.GetString(4))
-				
-
 					});
 
 				}
@@ -138,7 +134,6 @@ namespace HRIS.Database
 						Day = ParseEnum<DayOfWeek>(rdr.GetString(1)),
 						Start = rdr.GetTimeSpan(2),
 						End = rdr.GetTimeSpan(3)
-
 					});
 
 
@@ -180,9 +175,6 @@ namespace HRIS.Database
 						End = rdr.GetTimeSpan(4),
 						Type = ParseEnum<ClassType>(rdr.GetString(5)),
 						Room = rdr.GetString(6)
-
-
-
 					});
 
 				}
