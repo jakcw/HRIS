@@ -51,7 +51,6 @@ namespace HRIS.Database
 
 				while (rdr.Read())
 				{
-
 					// fill in additional data
 					unit.Add(new Unit
 					{	
