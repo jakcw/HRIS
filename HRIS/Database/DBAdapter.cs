@@ -32,7 +32,7 @@ namespace HRIS.Database
 
 		// Convert string to enum
 		public static T ParseEnum<T>(string value)
-		{
+		{	
 			return (T)Enum.Parse(typeof(T), value, true);
 		}
 
@@ -58,11 +58,16 @@ namespace HRIS.Database
 						Code = rdr.GetString(0),
 						Title = rdr.GetString(1),
 						Coordinator = rdr.GetInt32(2)
+
 					});
 
 
 				}
 					
+			}
+			catch (MySqlException e)
+			{
+				Console.WriteLine("Error Generated. Details: " + e.ToString());
 			}
 			finally
 			{
@@ -73,6 +78,10 @@ namespace HRIS.Database
 			return unit;
 		}
 
+		/// <summary>
+		///  Gets basic staff details to populate the staff list view of the GUI
+		/// </summary>
+		/// <returns></returns>
 		public static List<Staff> GetStaffDetails()
 		{
 			MySqlDataReader rdr = null;
@@ -102,6 +111,12 @@ namespace HRIS.Database
 				}
 
 			}
+
+			catch (MySqlException e)
+			{
+				Console.WriteLine("Error Generated. Details: " + e.ToString());
+			}
+
 			finally
 			{
 				rdr.Close();
@@ -110,6 +125,64 @@ namespace HRIS.Database
 
 			return staff;
 
+
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id">ID number of given staff member</param>
+		/// <returns>Staff object with all information necessary for add and edit staff detail functions</returns>
+		public static Staff GetFullStaffDetails(int id)
+		{
+
+			MySqlDataReader rdr = null;
+			MySqlConnection conn = GetConnection();
+
+			Staff staff = null; // This will be the staff member returned
+			
+			try
+            {
+				conn.Open();
+				var command = new MySqlCommand("SELECT * FROM staff where id=?id", conn);
+				command.Parameters.AddWithValue("id", id);
+
+				rdr = command.ExecuteReader();
+				rdr.Read();
+
+				staff = new Staff
+				{	
+					ID = rdr.GetInt32(0),
+					GivenName = rdr.GetString(1),
+					FamilyName = rdr.GetString(2),
+					Title = rdr.GetString(3),
+					Campus = ParseEnum<Campus>(rdr.GetString(4)),
+					Room = rdr.GetString(5),
+					Phone = rdr.GetString(6),
+					Email = rdr.GetString(7),
+					Photo = rdr.GetString(8),
+					Category = ParseEnum<Category>(rdr.GetString(9))
+
+
+				};
+
+            }
+
+			catch (MySqlException e)
+			{
+				Console.WriteLine("Error: Cannot connect to database " + e);
+			}
+
+			finally
+			{
+				rdr.Close();
+				conn.Close();
+			}
+
+
+
+
+			return staff; 
 
 		}
 
@@ -135,10 +208,12 @@ namespace HRIS.Database
 						Day = ParseEnum<DayOfWeek>(rdr.GetString(1)),
 						Start = rdr.GetTimeSpan(2),
 						End = rdr.GetTimeSpan(3)
+
 					});
 
 
 				}
+
 			}
 			finally
 			{
@@ -175,6 +250,9 @@ namespace HRIS.Database
 						End = rdr.GetTimeSpan(4),
 						Type = ParseEnum<ClassType>(rdr.GetString(5)),
 						Room = rdr.GetString(6)
+
+
+
 					});
 
 				}
