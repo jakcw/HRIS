@@ -36,29 +36,33 @@ namespace HRIS.Database
 			return (T)Enum.Parse(typeof(T), value, true);
 		}
 
-
-		public static List<Unit> GetUnitDetails()
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id">Staff id of unit coordinator</param>
+		/// <returns>List of units coordinated by given staff member</returns>
+		public static List<Unit> GetUnitDetails(int id)
 		{
 			MySqlDataReader rdr = null;
 			MySqlConnection conn = GetConnection();
-			var unit = new List<Unit>();
+			var unitDetails = new List<Unit>();
 
 			try
 			{
 				conn.Open();
-				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit", conn);
+				var command = new MySqlCommand("SELECT code, title, coordinator FROM unit WHERE coordinator=?id", conn);
+				command.Parameters.AddWithValue("id", id);
 				rdr = command.ExecuteReader();
 
 				while (rdr.Read())
 				{
 
 					// fill in additional data
-					unit.Add(new Unit
+					unitDetails.Add(new Unit
 					{	
 						Code = rdr.GetString(0),
 						Title = rdr.GetString(1),
-						Coordinator = rdr.GetInt32(2)
-
+						
 					});
 
 
@@ -75,7 +79,7 @@ namespace HRIS.Database
 				conn.Close();
 			}
 
-			return unit;
+			return unitDetails;
 		}
 
 		/// <summary>
@@ -133,26 +137,26 @@ namespace HRIS.Database
 		/// </summary>
 		/// <param name="id">ID number of given staff member</param>
 		/// <returns>Staff object with all information necessary for add and edit staff detail functions</returns>
-		public static Staff GetFullStaffDetails(int id)
+		public static Staff GetFullStaffDetails(Staff staff)
 		{
 
 			MySqlDataReader rdr = null;
 			MySqlConnection conn = GetConnection();
 
-			Staff staff = null; // This will be the staff member returned
+			Staff staffDetails = null; // This will be the staff member returned
 			
 			try
             {
 				conn.Open();
 				var command = new MySqlCommand("SELECT * FROM staff where id=?id", conn);
-				command.Parameters.AddWithValue("id", id);
+				command.Parameters.AddWithValue("id", staff.ID);
 
 				rdr = command.ExecuteReader();
 				rdr.Read();
 
-				staff = new Staff
+				staffDetails = new Staff
 				{	
-					ID = rdr.GetInt32(0),
+					ID = staff.ID,
 					GivenName = rdr.GetString(1),
 					FamilyName = rdr.GetString(2),
 					Title = rdr.GetString(3),
@@ -179,32 +183,36 @@ namespace HRIS.Database
 				conn.Close();
 			}
 
-
-
-
-			return staff; 
+			return staffDetails;
 
 		}
 
-		public static List<Consultation> GetConsultationDetails()
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="id">id of staff member attending consultation</param>
+		/// <returns>List of consultations of staff members based on id</returns>
+		public static List<Consultation> GetConsultationDetails(int id)
 		{
 			MySqlDataReader rdr = null;
 			MySqlConnection conn = GetConnection();
-			var consult = new List<Consultation>();
+			var consultations = new List<Consultation>();
 
 			try
 			{
 				conn.Open();
-				var command = new MySqlCommand("SELECT staff_id, day, start, end FROM consultation", conn);
+				var command = new MySqlCommand("SELECT staff_id, day, start, end FROM consultation where staff_id=?id", conn);
+				command.Parameters.AddWithValue("id", id);
 				rdr = command.ExecuteReader();
+				
 
 				while (rdr.Read())
 				{
 
 					// fill in additional data
-					consult.Add(new Consultation
+					consultations.Add(new Consultation
 					{
-						ID = rdr.GetInt32(0),
 						Day = ParseEnum<DayOfWeek>(rdr.GetString(1)),
 						Start = rdr.GetTimeSpan(2),
 						End = rdr.GetTimeSpan(3)
@@ -221,10 +229,10 @@ namespace HRIS.Database
 				conn.Close();
 			}
 
-			return consult;
+			return consultations;
 		}
 
-		public static List<UnitClass> GetClassDetails()
+		public static List<UnitClass> GetClassDetails(int id)
         {
 			MySqlDataReader rdr = null;
 			MySqlConnection conn = GetConnection();
@@ -234,7 +242,8 @@ namespace HRIS.Database
 			try
 			{
 				conn.Open();
-				var command = new MySqlCommand("SELECT unit_code, campus, day, start, end, type, room FROM class", conn);
+				var command = new MySqlCommand("SELECT unit_code, campus, day, start, end, type, room FROM class where staff=?id", conn);
+				command.Parameters.AddWithValue("id", id);
 				rdr = command.ExecuteReader();
 
 				while (rdr.Read())
@@ -250,8 +259,6 @@ namespace HRIS.Database
 						End = rdr.GetTimeSpan(4),
 						Type = ParseEnum<ClassType>(rdr.GetString(5)),
 						Room = rdr.GetString(6)
-
-
 
 					});
 
