@@ -7,52 +7,66 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="115*"/>
-			<ColumnDefinition Width="97*"/>
-			<ColumnDefinition Width="341*"/>
-			<ColumnDefinition Width="102*"/>
-			<ColumnDefinition Width="97*"/>
-		</Grid.ColumnDefinitions>
-		<TabControl Grid.ColumnSpan="5" Margin="0,0,10,0">
-			<TabItem Header="HOME">
-				<Grid Background="#FF5B5B5B">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="17*"/>
-						<ColumnDefinition Width="179*"/>
-					</Grid.ColumnDefinitions>
-					<Calendar x:Name="HomeCalender" Margin="483,1,1,239" Grid.Column="1" SnapsToDevicePixels="True"/>
-				</Grid>
-			</TabItem>
-			<TabItem Header="STAFF" Height="20" VerticalAlignment="Bottom">
-				<Grid Background="#FF5B5B5B">
+        <TabControl Grid.ColumnSpan="5" Margin="0,0,10,0">
+            <TabItem Header="HOME">
+                <Grid Background="#FF5B5B5B">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="179*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </TabItem>
+            <TabItem Header="STAFF" Height="20" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="151*"/>
+                        <ColumnDefinition Width="283*"/>
+                        <ColumnDefinition Width="342*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="1">
+                        <ListBox ItemsSource="{Binding Source={StaticResource viewableStaff}}" BorderBrush="White" Margin="1,1,1,0" Background="White" Width="150" SelectionChanged="ListBox_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" x:Name="staffDetails" Orientation="Vertical">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="ID: "/>
+                                <Label Content="{Binding Path=ID}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Campus: "/>
+                                <Label Content="{Binding Path=Campus}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Phone: "/>
+                                <Label Content="{Binding Path=Phone}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Room: "/>
+                                <Label Content="{Binding Path=Room}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label Content="Email: "/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Category: "/>
+                                <Label Content="{Binding Path=Category}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
 
-					<StackPanel>
-						<TextBox x:Name="StaffSearch" HorizontalAlignment="Left"
-                                 Margin="72,49,0,0"
-                                 Text="Search"
-                                 TextWrapping="Wrap"
-                                 VerticalAlignment="Top" Width="120"
-                                 IsReadOnly="True"/>
-					</StackPanel>
-					<Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" Height="271" Margin="0,125,0,0" VerticalAlignment="Top" Width="784">
+                </Grid>
+            </TabItem>
+            <TabItem Header="CONSULTATION">
+                <Grid Background="#FF5B5B5B"/>
+            </TabItem>
+            <TabItem Header="CLASS">
+                <Grid Background="#FF5B5B5B"/>
+            </TabItem>
+            <TabItem Header="UNIT">
+                <Grid Background="#FF5B5B5B"/>
+            </TabItem>
 
-					</Border>
-					<DataGrid SelectedValuePath="mysql://alacritas.cis.utas.edu.au/hris/staff" DisplayMemberPath="mysql://alacritas.cis.utas.edu.au/hris/staff"/>
-				</Grid>
-			</TabItem>
-			<TabItem Header="CONSULTATION">
-				<Grid Background="#FF5B5B5B"/>
-			</TabItem>
-			<TabItem Header="CLASS">
-				<Grid Background="#FF5B5B5B"/>
-			</TabItem>
-			<TabItem Header="UNIT">
-				<Grid Background="#FF5B5B5B"/>
-			</TabItem>
-			<TabItem Header="STUDENT">
-				<Grid Background="#FF5B5B5B"/>
-			</TabItem>
-		</TabControl>
+
+        </TabControl>
     </Grid>
 </Window>

@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HRIS.Controller;
+using HRIS.Database;
+using HRIS.Entities;
 
 namespace HRIS
 {
@@ -20,9 +23,25 @@ namespace HRIS
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private const string STAFF_KEY = "viewableStaff";
+        private StaffController staffController;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            staffController = (StaffController)(Application.Current.FindResource(STAFF_KEY) as ObjectDataProvider).ObjectInstance;
+        }
+
+      
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                staffDetails.DataContext = DBAdapter.GetFullStaffDetails((Staff)e.AddedItems[0]);
+            }
         }
     }
 }
