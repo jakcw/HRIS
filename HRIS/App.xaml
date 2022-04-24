@@ -7,6 +7,9 @@
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <local1:StaffController x:Key="staff"/>
-        
+        <ObjectDataProvider x:Key="viewableStaff"
+                            ObjectInstance="{StaticResource staff}"
+                            MethodName="GetViewableList">
+        </ObjectDataProvider>
     </Application.Resources>
 </Application>
